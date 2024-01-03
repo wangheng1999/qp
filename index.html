@@ -1,49 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
     <style>
         *{
             padding: 0;
             margin: 0;
             box-sizing: border-box;
         }
-        #box{
-            background: black;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .box{
+            display: none;
         }
-        .aaa{
-            color: white;
-            font-size: 28px;
-            cursor: pointer;
+        @media screen and (orientation: portrait){
+            /*.main{*/
+            /*    transform: rotate(-90deg);*/
+            /*    width: 100vw;*/
+            /*    height: 100vh;*/
+            /*    overflow: hidden;*/
+            /*    background: yellow;*/
+            /*}*/
+            .box{
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 26px;
+                color: black;
+                font-weight: bold;
+            }
+        }
+        @media screen and (orientation: landscape){
+            .main{
+                /*transform: rotate(-90deg);*/
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+                background: yellow;
+                position: relative;
+            }
+        }
+        .ccc{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: 50%;
+            top: 50%;
+            background: black;
         }
     </style>
 </head>
 <body>
-<div id="box">
-    <div class="aaa">开启全屏</div>
+<div class="main">
+    <div class="ccc"></div>
 </div>
+<div class="box">必须横屏</div>
 <script>
-    console.log();
-    let box = document.getElementById("box")
-    function fullScreen(element) {
-        if(element.requestFullScreen) {
-            element.requestFullScreen();
-        } else if(element.webkitRequestFullScreen ) {
-            element.webkitRequestFullScreen();
-        } else if(element.mozRequestFullScreen) {
-            element.mozRequestFullScreen();
-        }
-    }
-    document.querySelector(".aaa").onclick = function () {
-        fullScreen(box)
-    }
-
+    let too = ''
+    let tee = ''
+    let main = document.querySelector(".main")
+    let ccc = document.querySelector(".ccc")
+    let cX = ccc.getBoundingClientRect().x
+    let cT = ccc.getBoundingClientRect().y
+    main.addEventListener('touchstart',function (event) {
+        console.log(event);
+        too = event.targetTouches[0].pageX
+        tee = event.targetTouches[0].pageY
+         cX = ccc.getBoundingClientRect().x
+         cT = ccc.getBoundingClientRect().y
+    })
+    main.addEventListener('touchmove', function(event) {
+        // 处理滑动事件的逻辑
+        ccc.style.left = cX + (event.targetTouches[0].pageX - too) + 'px'
+        ccc.style.top = cT + (event.targetTouches[0].pageY - tee) + 'px'
+    });
+    main.addEventListener('touchend', function(event) {
+        // 处理滑动结束后的操作或逻辑
+        console.log(event);
+    });
 </script>
 </body>
 </html>
