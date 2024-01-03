@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        #box{
+            background: black;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .aaa{
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <div class="aaa">开启全屏</div>
+</div>
+<script>
+    console.log();
+    let box = document.getElementById("box")
+    function fullScreen(element) {
+        if(element.requestFullScreen) {
+            element.requestFullScreen();
+        } else if(element.webkitRequestFullScreen ) {
+            element.webkitRequestFullScreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        }
+    }
+    document.querySelector(".aaa").onclick = function () {
+        fullScreen(box)
+    }
+
+</script>
+</body>
+</html>
